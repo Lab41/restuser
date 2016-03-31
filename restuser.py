@@ -54,10 +54,10 @@ class UserHandler(web.RequestHandler):
     
     def post(self, name):
         user = self.get_user(name)
+        d = {}
         if user is None:
             self.finish(json.dumps(d))
             #user = self.new_user(name)
-        d = {}
         for attr in ['name', 'dir', 'shell', 'uid', 'gid']:
             d[attr] = getattr(user, 'pw_' + attr)
         self.finish(json.dumps(d))
